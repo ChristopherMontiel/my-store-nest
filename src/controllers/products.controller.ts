@@ -7,11 +7,13 @@ import {
   Body,
   Put,
   Delete,
+  //ParseIntPipe,
   //HttpStatus,
   //HttpCode,
 } from '@nestjs/common';
 
 import { ProductsService } from '../services/products.service';
+import { ParseIntPipe } from '../common/parse-int.pipe';
 
 @Controller('products')
 export class ProductsController {
@@ -34,8 +36,8 @@ export class ProductsController {
   //forma 2 de recibir parámetros:
   @Get(':productId')
   //@HttpCode(HttpStatus.OK)
-  getProduct(@Param('productId') productId: string) {
-    return this.productsService.findOne(+productId);
+  getProduct(@Param('productId', ParseIntPipe) productId: number) {
+    return this.productsService.findOne(productId);
   }
 
   //parametros query (forma 1)
